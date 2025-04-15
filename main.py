@@ -3,6 +3,7 @@ import os
 import sys
 import io
 import asyncio
+from datetime import time
 
 # Определяем базовую директорию (где находится .exe или .py)
 BASE_DIR = os.path.dirname(os.path.abspath(sys.executable if getattr(sys, 'frozen', False) else __file__))
@@ -40,4 +41,5 @@ if __name__ == "__main__":
         logging.warning(f"Не удалось зарегистрировать задачу: {e}")
 
     asyncio.run(run_bot(config["api_id"], config["api_hash"]))
-    input("\nЗадача выполнена, нажмите Enter, чтобы выйти...")
+    print("\nЗадача выполнена, программа завершится автоматически через 30 секунд...")
+    time.sleep(30)

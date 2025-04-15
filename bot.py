@@ -39,12 +39,12 @@ async def run_bot(api_id: int, api_hash: str, session_name: str = "story_session
             first_story = user_stories[0]
             last_like = likes.get(str(contact.id))
 
-            if not last_like or datetime.now() - datetime.fromisoformat(last_like) > timedelta(days=3):
+            if not last_like or datetime.now() - datetime.fromisoformat(last_like) > timedelta(days=2):
                 try:
                     await client(functions.stories.SendReactionRequest(
                         peer=types.InputPeerUser(contact.id, contact.access_hash),
                         story_id=first_story.id,
-                        reaction=types.ReactionEmoji(emoticon='👍')
+                        reaction=types.ReactionEmoji(emoticon='❤️')
                     ))
                     logging.info(f'Поставлен лайк контакту: {contact.first_name}')
                     likes[str(contact.id)] = datetime.now().isoformat()

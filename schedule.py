@@ -7,8 +7,10 @@ def create_task_if_needed():
     print("Создание задач планировщика...")
 
     task_names = [
-        ("GiveMeAKissBot_morning_kiss_Repeat", "12:00"),
-        ("GiveMeAKissBot_evening_kiss_Repeat", "18:00")
+        ("GiveMeAKiss_10", "10:00"),
+        ("GiveMeAKiss_13", "13:00"),
+        ("GiveMeAKiss_16", "16:00"),
+        ("GiveMeAKiss_19", "19:00")
     ]
 
     exe_path = os.path.abspath("GiveMeAKissBot.exe")
@@ -27,7 +29,7 @@ def create_task_if_needed():
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             if check.returncode == 0:
                 logging.info(f"Задача уже существует: {name}")
-                print(f"Для удаления задачи выполните: stop_bot.bat")
+                print(f"Для удаления задач выполните: stop_bot.bat")
                 continue
 
             result = subprocess.run([
@@ -42,8 +44,7 @@ def create_task_if_needed():
 
             if result.returncode == 0:
                 logging.info(f"Задача создана: {name}")
-                print(f"Запуск автоматически в {time}")
-                print(f"Для удаления задач выполните: stop_bot.bat")
+                print(f"✅ Запуск автоматически в {time}")
             else:
                 logging.warning(f"Не удалось создать задачу: {name}")
                 logging.warning(f"STDOUT: {result.stdout.strip() or '<пусто>'}")
@@ -55,7 +56,7 @@ def create_task_if_needed():
     # Создание stop_bot.bat
     stop_path = os.path.abspath("stop_bot.bat")
     with open(stop_path, "w", encoding="utf-8") as f:
-        f.write(f"@echo off\n")
+        f.write("@echo off\n")
         for name, _ in task_names:
             f.write(f'"{schtasks_path}" /Delete /TN "{name}" /F\n')
         f.write("echo GiveMeAKissBot задачи удалены из планировщика\n")
