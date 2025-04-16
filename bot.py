@@ -16,6 +16,9 @@ async def run_bot(api_id: int, api_hash: str, session_name: str = "story_session
         contacts = contacts_response.users
 
         for contact in contacts:
+            if not getattr(contact, "premium", False):
+                continue  # пропускаем пользователей без премиума
+
             logging.info(f'Проверка историй у контакта: {contact.first_name}')
 
             try:

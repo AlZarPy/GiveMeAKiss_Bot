@@ -29,7 +29,6 @@ def create_task_if_needed():
             ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             if check.returncode == 0:
                 logging.info(f"Задача уже существует: {name}")
-                print(f"Для удаления задач выполните: stop_bot.bat")
                 continue
 
             result = subprocess.run([

@@ -3,7 +3,7 @@ import os
 import sys
 import io
 import asyncio
-from datetime import time
+import time
 
 # Определяем базовую директорию (где находится .exe или .py)
 BASE_DIR = os.path.dirname(os.path.abspath(sys.executable if getattr(sys, 'frozen', False) else __file__))
